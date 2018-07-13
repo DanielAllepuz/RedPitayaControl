@@ -1,0 +1,247 @@
+<RPControlScreen>:
+    ip_input: ip_input
+    port_input: port_input
+    connect_button: connect_button
+    status_label: status_label
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 0.05
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+                Label:
+                    text: "IP:"
+                TextInput:
+                    multiline: False
+                    size_hint_y: None
+                    height: 28
+
+                    id: ip_input
+                    text: "10.9.1.132"
+            BoxLayout:
+                orientation: "horizontal"
+                Label:
+                    text: "Port:"
+                TextInput:
+                    multiline: False
+                    size_hint_y: None
+                    height: 28
+                    id: port_input
+                    text: "5000"
+            Button:
+                id: connect_button
+                label: "What"
+                text: "Connect"
+                on_press: root.connect_to_redpitaya()
+
+            Label:
+                id: status_label
+                markup_enable: True
+                color: (1.0, 1.0, 0.0, 1.0)
+                text: "Status: disconnected"
+
+        TabbedPanel:
+            do_default_tab: False
+
+            TabbedPanelItem:
+                text: "Function gen."
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    #Channel
+
+                    BoxLayout:
+                        orientation: "horizontal"
+                        Label:
+                            text: "Channel:"
+                        BoxLayout:
+                            orientation: "vertical"
+                            orientation: "vertical"
+                            BoxLayout:
+                                orientation: "horizontal"
+                                CheckBox:
+                                    group: "channel"
+                                    on_active: root.channel = 1
+                                Label:
+                                    halign: "right"
+                                    text: "1"
+                            BoxLayout:
+                                orientation: "horizontal"
+                                CheckBox:
+                                    group: "channel"
+                                    on_active: root.channel = 2
+                                Label:
+                                    text: "2"
+                    #Func
+                    BoxLayout:
+                        orientation: "horizontal"
+                        Label:
+                            text: "Function:"
+                        BoxLayout:
+                            orientation: "vertical"
+                            StackLayout:
+                                orientation: "lr-tb"
+                                CheckBox:
+                                    size_hint_x: 0.25
+                                    group: "func"
+                                    on_active: root.func = "SINE"
+                                Label:
+                                    size_hint_x: 0.75
+                                    text: "SINE"
+                            StackLayout:
+                                orientation: "lr-tb"
+                                CheckBox:
+                                    size_hint_x: 0.25
+                                    group: "func"
+                                    on_active: root.func = "SQUARE"
+                                Label:
+                                    size_hint_x: 0.75
+                                    text: "SQUARE"
+                            StackLayout:
+                                orientation: "lr-tb"
+                                CheckBox:
+                                    size_hint_x: 0.25
+                                    group: "func"
+                                    on_active: root.func = "TRIANGLE"
+                                Label:
+                                    size_hint_x: 0.75
+                                    text: "TRIANGLE"
+                            StackLayout:
+                                orientation: "lr-tb"
+                                CheckBox:
+                                    size_hint_x: 0.25
+                                    group: "func"
+                                    on_active: root.func = "SAWU"
+                                Label:
+                                    size_hint_x: 0.75
+                                    text: "SAWU"
+                            StackLayout:
+                                orientation: "lr-tb"
+                                CheckBox:
+                                    size_hint_x: 0.25
+                                    group: "func"
+                                    on_active: root.func = "SAWD"
+                                Label:
+                                    size_hint_x: 0.75
+                                    text: "SAWD"
+                            StackLayout:
+                                orientation: "lr-tb"
+                                CheckBox:
+                                    size_hint_x: 0.25
+                                    group: "func"
+                                    on_active: root.func = "PWM"
+                                Label:
+                                    size_hint_x: 0.75
+                                    text: "PWM"
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: 30
+
+                            Label:
+                                halign: "left"
+                                text: "Frequency:"
+
+                            StackLayout:
+                                orientation: "lr-tb"
+                                TextInput:
+                                    size_hint_x: 0.6
+                                    multiline: False
+                                    text: "1000"
+                                    on_text_validate: root.freq = float(self.text)
+                                Label:
+                                    size_hint_x: 0.3
+                                    text: "Hz"
+
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: 30
+
+                            Label:
+                                halign: "left"
+                                text: "Amplitude:"
+
+                            StackLayout:
+                                orientation: "lr-tb"
+                                TextInput:
+                                    size_hint_x: 0.6
+                                    multiline: False
+                                    text: "1"
+                                    on_text_validate: root.amplitude = float(self.text)
+                                Label:
+                                    size_hint_x: 0.3
+                                    text: "V"
+
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: 30
+
+                            Label:
+                                halign: "left"
+                                text: "Offset:"
+
+                            StackLayout:
+                                orientation: "lr-tb"
+                                TextInput:
+                                    size_hint_x: 0.6
+                                    multiline: False
+                                    text: "0"
+                                    on_text_validate: root.offset = float(self.text)
+                                Label:
+                                    size_hint_x: 0.3
+                                    text: "V"
+
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: 30
+
+                            Label:
+                                halign: "left"
+                                text: "Phase:"
+
+                            StackLayout:
+                                orientation: "lr-tb"
+                                TextInput:
+                                    size_hint_x: 0.6
+                                    multiline: False
+                                    text: "0"
+                                    on_text_validate: root.phase = float(self.text)
+                                Label:
+                                    size_hint_x: 0.3
+                                    text: "deg"
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: 30
+
+                            Label:
+                                halign: "left"
+                                text: "Duty cycle:"
+
+                            StackLayout:
+                                orientation: "lr-tb"
+                                TextInput:
+                                    size_hint_x: 0.6
+                                    multiline: False
+                                    text: "0"
+                                    on_text_validate: root.dcyc = float(self.text)
+                                Label:
+                                    size_hint_x: 0.3
+                                    text: "%"
+
+
+
+
+            TabbedPanelItem:
+                text: "RP messages"
+
+            TabbedPanelItem:
+                text: "LEDs"

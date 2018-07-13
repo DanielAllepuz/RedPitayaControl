@@ -9,7 +9,7 @@ class scpi (object):
     """SCPI class used to access Red Pitaya over an IP network."""
     delimiter = '\r\n'
 
-    def __init__(self, host, timeout=None, port=5000):
+    def __init__(self, host, timeout=None, port=5000, exceptions = []):
         """Initialize object and open IP connection.
         Host IP should be a string in parentheses, like '192.168.1.100'.
         """
@@ -26,7 +26,8 @@ class scpi (object):
             self._socket.connect((host, port))
 
         except socket.error as e:
-            print('SCPI >> connect({:s}:{:d}) failed: {:s}'.format(host, port, e))
+            print('SCPI >> connect(' + str(host) + ':' + str(port) + ') failed:' + str(e))
+            exceptions.append(e)
 
     def __del__(self):
         if self._socket is not None:

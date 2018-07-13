@@ -20,10 +20,10 @@ class RedPitaya(object):
     This class represents a RedPitaya.
     The port defaults to 5000.
     """
-    def __init__(self, ip, port = 5000):
+    def __init__(self, ip, port = 5000, exceptions = []):
         super(RedPitaya, self).__init__()
         #RedPitaya server implemented in redpitaya_scpi.py (code from RedPitaya docs)
-        self.rp_server = scpi.scpi(ip, port = port)
+        self.rp_server = scpi.scpi(ip, port = port, exceptions = exceptions)
 
     def send_txt(self, cmd):
         """
@@ -99,7 +99,4 @@ class RedPitaya(object):
 
 if __name__ == '__main__':
     rp = RedPitaya("10.9.1.132")
-    x = np.linspace(0, 2*np.pi, 100)
-    rp.set_output_signal(1, True, freq = 1e6, func = "ARBITRARY", waveform = list(x))
-    #sleep(5)
-    #rp.set_output_signal(1, False)
+    rp.set_output_signal(1, True, freq = 4.3e3, func = "SINE", waveform = [])
